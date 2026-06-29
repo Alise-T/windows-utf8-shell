@@ -12,7 +12,8 @@ Keep Windows/PowerShell commands UTF-8 safe.
 1. Source the bundled prelude before commands that read, write, print, or send non-ASCII text:
 
 ```powershell
-. "$env:USERPROFILE\.codex\skills\windows-utf8-shell\scripts\utf8_prelude.ps1"
+$codexHome = if ($env:CODEX_HOME) { $env:CODEX_HOME } else { Join-Path $env:USERPROFILE ".codex" }
+. (Join-Path $codexHome "skills\windows-utf8-shell\scripts\utf8_prelude.ps1")
 ```
 
 2. Do not pipe inline scripts containing Chinese, Japanese, emoji, prompts, JSON payloads, or Markdown through PowerShell here-strings, `echo`, or shell interpolation. Put that content in UTF-8 files first.
