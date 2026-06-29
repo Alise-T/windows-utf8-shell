@@ -1,0 +1,4 @@
+interface:
+  display_name: "Windows UTF-8 Shell"
+  short_description: "Avoid PowerShell Unicode and Chinese encoding corruption."
+  default_prompt: "Use Windows UTF-8 Shell when running commands or scripts that handle Chinese, Unicode text, JSON, API payloads, or Markdown on Windows."
