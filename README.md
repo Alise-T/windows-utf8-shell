@@ -4,18 +4,13 @@
 
 ## 为什么需要它
 
-Codex 在 Windows 上执行命令时，经常会通过 PowerShell 读取文件、拼接脚本、运行 Python/Node、调用模型 API 或生成报告。
+Codex 在 Windows PowerShell 里默认读取或传递中文内容时，容易把文本变成乱码。
 
-这些默认路径在处理中文时并不总是安全：
+即使某次手动改了读取方式，换线程、上下文压缩或重新开始任务后，Codex 也可能回到默认命令。结果就是同一个中文乱码问题反复出现。
 
-- `Get-Content` 默认读取方式可能不符合 UTF-8 预期
-- PowerShell here-string、`echo`、管道传递内联脚本时，中文 prompt 可能在进入 Python 或 API 前已经损坏
-- PowerShell 5.1 和 PowerShell 7 对 `-Encoding utf8` 的行为不完全一致
-- 通过重定向、`Out-File`、未指定编码的写入方式生成中文文件时，可能出现 BOM、乱码或问号
-- JSON 请求内容如果在 shell 层被破坏，模型收到的就不是原始中文
+这不只会影响文件读取和报告生成。调用模型 API 时，如果中文 prompt 或 JSON 请求内容在 shell 层已经损坏，模型收到的就不是原始中文。codex自己排查这类问题也会浪费时间和 token。
 
-这类问题很容易被误判为“模型没理解中文”“API 返回异常”或“文件内容本来就坏了”。  
-这个 skill 的目标是让 Codex 在触碰中文、UTF-8 文件、JSON 和 API 请求内容时，优先使用更稳的读取、写入和传输方式。
+本 skill 的作用是把更稳的读取、写入和传输方式固定下来，当 Codex 在 Windows 上处理中文、UTF-8 文件、JSON、Markdown 或 API 请求内容时，优先避开容易破坏中文的 PowerShell 路径。
 
 ## 主要解决的问题
 
