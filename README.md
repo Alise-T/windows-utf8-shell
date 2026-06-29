@@ -1,4 +1,4 @@
-# windows-utf8-shell
+# codex-windows-utf8-shell
 
 一个给 Codex 使用的轻量 skill，用来降低 Windows PowerShell 环境下的中文和 UTF-8 编码问题。
 
